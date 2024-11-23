@@ -1,0 +1,198 @@
+:root {
+    --mostaza: #F2CD27;
+    --verde-oscuro: #123F26;
+    --amarillo-claro: #FFFDD8;
+    --header-bg: rgba(255, 253, 216, 0.2);
+    --verde-fosfo: #C9FF87;
+    --beige: #FCF7ED;
+    --verde-claro: #9FC76E;
+    --cafe-oscuro: #373027;
+    --verde-intermedio: #2E7549;
+    --verde-footer: #013A2C;
+    --verde-gris: #F9FCED;
+    --verde-oliva: #3A752E;
+    --verde-oliva-claro: #749C67;
+    --naranja: #F27A33;
+    --cafe-transparency:rgb(130,99,72,0.2);
+}
+
+body, html {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+    background-color: var(--amarillo-claro);
+    height: 100%;
+}
+
+/* Header Styling */
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-weight: 700;
+    padding: 20px 30px;
+    background-color: var(--header-bg);
+    box-shadow: 0px 2px 5px rgba(4, 57, 44, 0.1);
+    position: relative; 
+    z-index: 10; 
+}
+
+/* Logo Styling */
+.logo img {
+    height: 50px;
+}
+
+/* Navigation Styling */
+.navigation {
+    display: flex;
+    gap: 20px;
+}
+
+.navigation a {
+    text-decoration: none;
+    font-size: 16px;
+    color: var(--verde-oscuro);
+    transition: color 0.3s ease;
+}
+
+.navigation a:hover {
+    color: var(--mostaza); 
+}
+
+.sign-up button {
+    padding: 10px 20px;
+    font-weight: 700;
+    font-size: 16px;
+    color: var(--verde-oscuro);
+    background-color: var(--mostaza);
+    border: none;
+    font-family: "Poppins", sans-serif;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.sign-up button:hover {
+    background-color: gold;
+}
+
+/* Sign-Up Section */
+#signup-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: var(--verde-claro);
+    padding: 20px;
+    position: absolute; 
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1; 
+}
+
+/* Sign-Up Form Styling */
+#signup-form {
+    width: 100%;
+    max-width: 700px;
+    padding: 60px;
+    background-color: var(--beige);
+    border-radius: 20px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box; 
+}
+
+#signup-form h2 {
+    margin-bottom: 5px;
+    font-size: 24px;
+    color: var(--cafe-oscuro);
+    text-align: center;
+}
+
+#signup-form p {
+    margin-bottom: 50px;
+    font-size: 16px;
+    color: var(--cafe-oscuro);
+    text-align: center;
+}
+
+#signup-form label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: 500;
+    color: var(--cafe-oscuro);
+}
+
+#signup-form input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 30px;
+    border: none;
+    outline: none;
+    border-radius: 10px;
+    background-color: rgba(84, 74, 61, 0.3); 
+    box-sizing: border-box; /* Ensure padding does not affect width calculation */
+}
+
+#signup-form button {
+    width: 100%; 
+    padding: 12px;
+    background-color: var(--verde-intermedio); 
+    color: var(--beige);
+    font-family: "Poppins", sans-serif;
+    font-weight: 700;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    box-sizing: border-box; 
+    margin-top: 15px; 
+}
+
+#signup-form button:hover {
+    background-color: var(--verde-oscuro); 
+}
+
+/* Login Section */
+#login-section {
+    padding: 20px;
+    max-width: 400px;
+    margin: auto;
+    display: none;
+}
+
+#login-section h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: var(--cafe-oscuro);
+    text-align: center;
+}
+
+#login-section label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+#login-section input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border-radius: 10px;
+    background-color: rgba(84, 74, 61, 0.3);
+}
+
+#login-section button {
+    margin-top: 15px;
+    width: 100%;
+    padding: 12px;
+    background-color: var(--verde-intermedio);
+    color: var(--beige);
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+#login-section button:hover {
+    background-color: var(--verde-oscuro);
+}
