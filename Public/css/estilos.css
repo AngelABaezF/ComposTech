@@ -16,13 +16,17 @@
     --cafe-transparency:rgb(130,99,72,0.2);
 }
 
-body, html {
+body {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: "Poppins", sans-serif;
     background-color: var(--amarillo-claro);
     height: 100%;
+}
+
+button{
+    font-family: "Poppins", sans-serif;
 }
 
 /* Header Styling */
@@ -40,7 +44,7 @@ body, html {
 
 /* Logo Styling */
 .logo img {
-    height: 50px;
+    height: 20px;
 }
 
 /* Navigation Styling */
@@ -60,72 +64,125 @@ body, html {
     color: var(--mostaza); 
 }
 
-.sign-up button {
+.log-in button {
     padding: 10px 20px;
     font-weight: 700;
     font-size: 16px;
     color: var(--verde-oscuro);
     background-color: var(--mostaza);
     border: none;
-    font-family: "Poppins", sans-serif;
     border-radius: 30px;
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
 
-.sign-up button:hover {
+.log-in button:hover {
     background-color: gold;
 }
 
-/* Sign-Up Section */
-#signup-section {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+/* Forms Section */
+.forms {
     height: 100vh;
-    background-color: var(--verde-claro);
-    padding: 20px;
+    width: 100%;
+    display: flex;
+    align-items: center;
     position: absolute; 
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
     z-index: 1; 
-}
+    justify-content: center;
+    background-color: var(--verde-claro);
+    overflow: hidden;
+  }
 
-/* Sign-Up Form Styling */
-#signup-form {
-    width: 100%;
-    max-width: 700px;
-    padding: 60px;
-    background-color: var(--beige);
-    border-radius: 20px;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  .form img{
+    height: 70px;
+  }
+
+  .form {
+    position: absolute;
+    top:18%;
     box-sizing: border-box; 
-}
+    max-width: 600px;
+    width: 100%;
+    padding: 80px;
+    border-radius: 20px;
+    background: var(--beige);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    z-index: 0; /* Base z-index */
+    opacity: 0;
+    transform: translateY(20px);
+  }
 
-#signup-form h2 {
-    margin-bottom: 5px;
-    font-size: 24px;
-    color: var(--cafe-oscuro);
-    text-align: center;
-}
-
-#signup-form p {
-    margin-bottom: 50px;
-    font-size: 16px;
-    color: var(--cafe-oscuro);
-    text-align: center;
-}
-
-#signup-form label {
+  .forms .form.login {
+    z-index: 2;
     display: block;
-    margin-bottom: 10px;
-    font-weight: 500;
-    color: var(--cafe-oscuro);
-}
+    opacity: 1;
+    transform: translateY(0);
+  }
 
-#signup-form input {
+  .form.signup {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .header-form{
+    text-align: center;
+    margin-bottom: 60px;
+  }
+
+  .forms.show-signup .form.login {
+    display: none;
+    z-index: 0;
+    transform: translateY(20px);
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .forms.show-signup .form.signup {
+    display: block;
+    z-index: 2;
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .header-form p,h2{
+    margin:0;
+  }
+
+  h2 {
+    font-size: 28px;
+    font-weight: 600;
+    margin-top: 20px;
+    color: var(--cafe-oscuro);
+  }
+
+  form {
+    margin-top: 30px;
+  }
+
+  .form .field {
+    position: relative;
+    height: 50px;
+    width: 100%;
+    margin-top: 20px;
+    border-radius: 6px;
+  }
+
+  .field input,
+  .field button {
+    height: 100%;
+    width: 100%;
+    border: none;
+    font-size: 16px;
+    font-weight: 400;
+    border-radius: 6px;
+  }
+
+  .field input {
     width: 100%;
     padding: 12px;
     margin-bottom: 30px;
@@ -133,66 +190,48 @@ body, html {
     outline: none;
     border-radius: 10px;
     background-color: rgba(84, 74, 61, 0.3); 
-    box-sizing: border-box; /* Ensure padding does not affect width calculation */
-}
-
-#signup-form button {
-    width: 100%; 
-    padding: 12px;
-    background-color: var(--verde-intermedio); 
-    color: var(--beige);
-    font-family: "Poppins", sans-serif;
-    font-weight: 700;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
     box-sizing: border-box; 
-    margin-top: 15px; 
-}
+  }
 
-#signup-form button:hover {
-    background-color: var(--verde-oscuro); 
-}
-
-/* Login Section */
-#login-section {
-    padding: 20px;
-    max-width: 400px;
-    margin: auto;
-    display: none;
-}
-
-#login-section h2 {
-    font-size: 24px;
-    margin-bottom: 20px;
-    color: var(--cafe-oscuro);
-    text-align: center;
-}
-
-#login-section label {
-    display: block;
-    margin-bottom: 5px;
-}
-
-#login-section input {
-    width: 100%;
-    padding: 12px;
-    margin-bottom: 15px;
-    border-radius: 10px;
-    background-color: rgba(84, 74, 61, 0.3);
-}
-
-#login-section button {
-    margin-top: 15px;
-    width: 100%;
-    padding: 12px;
-    background-color: var(--verde-intermedio);
-    color: var(--beige);
-    border: none;
-    border-radius: 10px;
+  .field input:focus {
+    border-bottom-width: 2px;
+  }
+  .eye-icon {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    font-size: 18px;
+    color: #8b8b8b;
     cursor: pointer;
-}
-
-#login-section button:hover {
+    padding: 5px;
+  }
+  .field button {
+    color: #fff;
+    background-color: var(--verde-intermedio);
+    transition: all 0.3s ease;
+    cursor: pointer;
+  }
+  .field button:hover {
     background-color: var(--verde-oscuro);
-}
+  }
+  .form-link {
+    text-align: center;
+    margin-top: 10px;
+  }
+
+  .form-link span,
+  .form-link a {
+    font-size: 14px;
+    font-weight: 400;
+    color: #232836;
+  }
+  .form a {
+    color: var(--cafe-oscuro);
+    text-decoration: none;
+  }
+  .form-content a:hover {
+    text-decoration: underline;
+  }
+
+  
