@@ -14,7 +14,7 @@
     <body>
         <header class="nav-container">
             <div class="logo">
-                <img src="img/Logo.png">
+                <a href="#home"><img src="img/Logo.png"></a>
             </div>
             <nav>
                 <ul class="nav-links">
@@ -227,7 +227,6 @@
                     </div>
                   </div>
                 </div>
-                
                 <ul class="footer__nav">
                       <li>
                         <a href="#sobre-nosotros">SOBRE NOSOTROS</a>
@@ -252,7 +251,106 @@
                 </div>
               </footer>
         </main>
+        <section id="inicio-sesion">
+            <div class="login-container">
+                <form>
+                    <div class="header-form">
+                        <img src = "img/logo-icon.png">
+                        <h2>Únete a COMPOSTECH</h2>
+                        <div class="form-link">
+                            <p>¿No tienes cuenta? <a href="#crear-cuenta" class="link signup-link">Crear cuenta</a></p>
+                        </div>
+                    </div>
+                    <label for="lname">Email</label>
+                    <input type="text" id="ename" name="email">
+                    <label for="pname">Contraseña</label>
+                    <input type="password" id="pname" name="password">
+                    <a href="#dashboard"><button type="submit">Iniciar sesión</button></a>
+                </form>
+            </div>
+        </section>  
+        <section id="crear-cuenta">
+            <div class="signup-container">
+                <form>
+                    <div class="header-form">
+                        <img src = "img/logo-icon.png">
+                        <h2>Bienvenido a COMPOSTECH</h2>
+                        <div class="form-link">
+                            <p>¿Ya tienes cuenta? <a href="#inicio-sesion" class="link login-link">Iniciar sesión</a></p>
+                        </div>
+                    </div>
+                    <label for="lname">Email</label>
+                    <input type="text" id="ename" name="email">
+                    <label for="pname">Contraseña</label>
+                    <input type="password" id="pname" name="password">
+                    <a href="#dashboard"><button type="submit">Crear cuenta</button></a>
+                </form>
+            </div>
+        </section>  
+        <section id="dashboard">
+            <div class="dashboard-container">
+                <div class="main-content">
+                    <div class="bienvenida-header">
+                        <h2>¡Hola, [usuario]!</h2>
+                        <p>Bienvenido a tu dashboard personalizado. Aquí podrás monitorear el desempeño de tu cajón inteligente en tiempo real.</p>
+                    </div>
+                    
+                    <!-- Graph Widget -->
+                    <div class="widget-large">
+                        <div class="widget-content">
+                            <p>Resumen</p>
+                        </div>
+                    </div>
+            
+                    <div class="widget-row">
+                        <div class="widget-small">
+                            <img src="img/temp-ext.png" alt="Widget 1 Icon" class="widget-icon">
+                            <div class="widget-content">
+                                <h1>INTERIOR</h1>
+                                <p>Temperatura</p>
+                                <h2>28°C</h2>
+                            </div>
+                        </div>
+                        <div class="widget-small">
+                            <img src="img/temp-int.png" alt="Widget 2 Icon" class="widget-icon">
+                            <div class="widget-content">
+                                <h1>EXTERIOR</h1>
+                                <p>Temperatura</p>
+                                <h2>28°C</h2>
+                            </div>
+                        </div>
+                        <div class="widget-small">
+                            <img src="img/ph-icon.png" alt="Widget 3 Icon" class="widget-icon">
+                            <div class="widget-content">
+                                <h1>INTERIOR</h1>
+                                <p>pH</p>
+                                <h2>7</h2>
+                            </div>
+                        </div>
+                    </div>
+            
+                    <div class="widget-row">
+                        <div class="widget-medium">
+                            <img src="img/humedad-ext.png" alt="Widget 4 Icon" class="widget-icon">
+                            <div class="widget-content">
+                                <h1>EXTERIOR</h1>
+                                <p>Humedad</p>
+                                <h2>14 g/m</h2>
+                            </div>
+                        </div>
+                        <div class="widget-medium">
+                            <img src="img/humedad-interior.png" alt="Widget 5 Icon" class="widget-icon">
+                            <div class="widget-content">
+                                <h1>INTERIOR</h1>
+                                <p>Humedad</p>
+                                <h2>14 g/m</h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>            
         <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
-        <script src="js/script.js"></script>
+        <script src="js/scripts.js"></script>
     </body>
 </html>

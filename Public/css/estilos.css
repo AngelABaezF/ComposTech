@@ -569,12 +569,14 @@ button{
   
 .form-container h2{
     font-size: 50px;
+    color: var(--cafe-oscuro);
     margin:0;
 }
 .form-container p{
     font-size: 20px;
     margin:0;
     margin-bottom: 50px;
+    color: var(--cafe-oscuro);
 }
 .form-container {
     border-radius: 60px;
@@ -660,160 +662,362 @@ button{
     color: #999;
   }
 
-/* Forms Section */
-.forms {
-    height: 100vh;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    position: absolute; 
+/* Log-in Forms Section */
+#inicio-sesion {
+    display: none; 
+    background-color: var(--verde-claro); 
+    padding: 5rem;
+    position: fixed; 
     top: 0;
     left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: 1; 
-    justify-content: center;
-    background-color: var(--verde-claro);
-    overflow: hidden;
-  }
-
-  .form img{
-    height: 70px;
-  }
-
-  .form {
-    position: absolute;
-    top:18%;
-    box-sizing: border-box; 
-    max-width: 600px;
-    width: 100%;
-    padding: 80px;
-    border-radius: 20px;
-    background: var(--beige);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-    transition: opacity 0.3s ease, transform 0.3s ease;
-    z-index: 0; /* Base z-index */
-    opacity: 0;
-    transform: translateY(20px);
-  }
-
-  .forms .form.login {
-    z-index: 2;
-    display: block;
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  .form.signup {
-    opacity: 0;
-    pointer-events: none;
-  }
-
-  .header-form{
-    text-align: center;
-    margin-bottom: 60px;
-  }
-
-  .forms.show-signup .form.login {
-    display: none;
-    z-index: 0;
-    transform: translateY(20px);
-    opacity: 0;
-    pointer-events: none;
-  }
-
-  .forms.show-signup .form.signup {
-    display: block;
-    z-index: 2;
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  .header-form p, .header-form h2{
-    margin:0;
-  }
-
-  h2 {
-    font-size: 28px;
-    font-weight: 600;
-    margin-top: 20px;
-    color: var(--cafe-oscuro);
-  }
-
-  .form {
-    margin-top: 30px;
-  }
-
-  .form .field {
-    position: relative;
-    height: 50px;
-    width: 100%;
-    margin-top: 20px;
-    border-radius: 6px;
-  }
-
-  .field input,
-  .field button {
+    z-index: 1000; 
+    max-height: 100vh;
     height: 100%;
     width: 100%;
-    border: none;
-    font-size: 16px;
-    font-weight: 400;
-    border-radius: 6px;
+  }
+  
+  #inicio-sesion.visible {
+    display: block; 
   }
 
-  .field input {
-    width: 100%;
-    padding: 12px;
-    margin-bottom: 30px;
-    border: none;
-    outline: none;
-    border-radius: 10px;
-    background-color: rgba(84, 74, 61, 0.3); 
-    box-sizing: border-box; 
-  }
-
-  .field input:focus {
-    border-bottom-width: 2px;
-  }
-  .eye-icon {
+  .login-container{
     position: absolute;
-    top: 50%;
-    right: 10px;
-    transform: translateY(-50%);
-    font-size: 18px;
-    color: #8b8b8b;
-    cursor: pointer;
-    padding: 5px;
-  }
-  .field button {
-    color: #fff;
-    background-color: var(--verde-intermedio);
-    transition: all 0.3s ease;
-    cursor: pointer;
-  }
-  .field button:hover {
-    background-color: var(--verde-oscuro);
+    top:10%;
+    left:25%;
+    background-color: var(--beige);
+    width: 100%;
+    height: 100%;
+    max-height: 600px;
+    max-width: 600px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border-radius: 30px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
   }
 
-  .form-link {
+  .login-container img{
+    height: 80px;
+  }
+
+  .login-container .header-form{
+    text-align: center;
+    color:var(--cafe-oscuro);
+  }
+
+  .login-container .header-form h2{
+    font-size: 35px;
+    margin: 0;
+  }
+
+
+  .login-container .header-form p{
+    font-size: 20px;
+    margin-bottom: 30px;
+  }
+
+.login-container form{
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+}
+
+.login-container form label{
+    font-size: 20px;
+}
+
+.login-container.form-link {
     text-align: center;
     margin-top: 10px;
   }
 
-  .form-link span,
-  .form-link a {
+  .login-container.form-link span,
+  .login-container.form-link a {
     font-size: 14px;
     font-weight: 400;
     color: #232836;
   }
-  .form a {
+
+  .login-container form .form-link a {
     color: var(--cafe-oscuro);
     text-decoration: none;
   }
-  .form-content a:hover {
+
+  .login-container form .form-link a:hover {
     text-decoration: underline;
   }
+
+.login-container form input{
+    background-color: var(--cafe-transparency);
+    border: none;
+    box-sizing: border-box;
+    margin-top: 6px;
+    margin-bottom: 16px;
+    height: 40px;
+    resize: vertical;
+    border-radius: 6px;
+}
+
+.login-container button{
+    color:var(--beige);
+    background-color: var(--verde-intermedio);
+    border: none;
+    border-radius: 10px;
+    height: 40px;
+    font-family: "Poppins", sans-serif;
+    font-weight: 500;
+    font-size: 18px;
+    margin-top: 15px;
+}
+
+/* Sign-up Forms Section */
+#crear-cuenta {
+    display: none; 
+    background-color: var(--verde-claro); 
+    padding: 5rem;
+    position: fixed; 
+    top: 0;
+    left: 0;
+    z-index: 1000; 
+    max-height: 100vh;
+    height: 100%;
+    width: 100%;
+  }
+  
+  #crear-cuenta.visible {
+    display: block; 
+  }
+
+  .signup-container{
+    position: absolute;
+    top:10%;
+    left:25%;
+    background-color: var(--beige);
+    width: 100%;
+    height: 100%;
+    max-height: 600px;
+    max-width: 600px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border-radius: 30px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  }
+
+  .signup-container img{
+    height: 80px;
+  }
+
+  .signup-container .header-form{
+    text-align: center;
+    color:var(--cafe-oscuro);
+  }
+
+  .signup-container .header-form h2{
+    font-size: 35px;
+    margin: 0;
+  }
+
+
+  .signup-container .header-form p{
+    font-size: 20px;
+    margin-bottom: 30px;
+  }
+
+.signup-container form{
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+}
+
+.signup-container form label{
+    font-size: 20px;
+}
+
+.signup-container.form-link {
+    text-align: center;
+    margin-top: 10px;
+  }
+
+  .signup-container.form-link span,
+  .signup-container.form-link a {
+    font-size: 14px;
+    font-weight: 400;
+    color: #232836;
+  }
+
+  .signup-container form .form-link a {
+    color: var(--cafe-oscuro);
+    text-decoration: none;
+  }
+
+  .signup-container form .form-link a:hover {
+    text-decoration: underline;
+  }
+
+
+.signup-container form input{
+    background-color: var(--cafe-transparency);
+    border: none;
+    box-sizing: border-box;
+    margin-top: 6px;
+    margin-bottom: 16px;
+    height: 40px;
+    resize: vertical;
+    border-radius: 6px;
+}
+
+.signup-container button{
+    color:var(--beige);
+    background-color: var(--verde-intermedio);
+    border: none;
+    border-radius: 10px;
+    height: 40px;
+    font-family: "Poppins", sans-serif;
+    font-weight: 500;
+    font-size: 18px;
+    margin-top: 15px;
+}
+
+/*Dashboard Styling*/
+#dashboard {
+    display: none;
+    background-color: var(--beige); 
+    padding: 2rem;
+    position: fixed; /* Ensures the dashboard stays fixed */
+    top: 0;
+    left: 0;
+    z-index: 1000; 
+    width: 100%;
+    height: 100%; /* Ensures full viewport height */
+    overflow-y: auto; /* Allows scrolling within the dashboard */
+    box-sizing: border-box;
+}
+
+/* When dashboard is active, hide the rest of the page */
+body.no-scroll {
+    overflow: hidden;
+    height: 100%; /* Prevent scrolling of the entire page */
+}
+
+.dashboard-container {
+    display: flex;
+    justify-content: center;
+}
+
+.bienvenida-header{
+    color:var(--cafe-oscuro);
+    margin-bottom: 3rem;
+}
+
+.bienvenida-header h2{
+    font-size:40px;
+    font-weight: 500;
+}
+
+.bienvenida-header p{
+    font-size:25px;
+}
+
+.main-content {
+    max-width: 1200px;
+    width: 100%;
+    color:#04392C;
+}
+
+.widget-content h1, h2, p{
+    margin:0;
+}
+
+.widget-content h1, p{
+    font-size: 20px;
+}
+
+.widget-content p{
+    color: var(--verde-oliva);
+}
+
+.widget-content h2{
+    margin-top: 15px;
+    font-size: 50px;
+}
+
+.widget-large,
+.widget-small,
+.widget-medium {
+    display: flex;
+    align-items: center;
+    background-color: #ffffff;
+    border-radius: 45px;
+    box-shadow: 0 4px 8px rgba(55, 48, 39, 0.1);
+    overflow: hidden; 
+    margin-bottom: 20px;
+}
+
+.widget-icon {
+    width: auto;
+    height: 100%;
+    object-fit: cover; 
+}
+
+.widget-content {
+    padding: 20px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.widget-large {
+    height: 300px;
+    width: 100%;
+}
+
+.widget-small {
+    flex: 1;
+    height: 200px;
+    margin-right: 20px;
+}
+
+.widget-small:last-child, .widget-medium:last-child  {
+    margin-right: 0; 
+}
+
+.widget-medium {
+    flex: 1;
+    height: 200px;
+    margin-right: 20px;
+}
+
+.widget-row {
+    display: flex;
+    gap: 20px;
+}
+
+
+/*Styling adicionales*/
+#inicio-sesion, #crear-cuenta, #dashboard {
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.hidden {
+    display: none;
+    opacity: 0;
+    visibility: hidden;
+}
+
+.visible {
+    display: block;
+    opacity: 1;
+    visibility: visible;
+}
+
+
+  
 
 
 
