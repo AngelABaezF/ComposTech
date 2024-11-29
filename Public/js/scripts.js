@@ -3,11 +3,11 @@ document.addEventListener("DOMContentLoaded", () => {
     const signupLink = document.querySelector(".signup-link"); // Link to signup section
     const loginLink = document.querySelector(".login-link"); // Link to login section
     const loginFormButton = document.querySelector("a[href='#dashboard']"); // Login form button
-    const signupFormButton = document.querySelector("a[href='#dashboard']"); // Login form button
 
     const loginSection = document.querySelector("#inicio-sesion"); // Login section
     const signupSection = document.querySelector("#crear-cuenta"); // Signup section
     const dashboardSection = document.querySelector("#dashboard"); // Dashboard section
+    const exitIcon = document.querySelector("#exit-icon"); // Exit icon for logout
 
     // Initially hide all sections except the header
     loginSection.style.display = "none";
@@ -42,12 +42,18 @@ document.addEventListener("DOMContentLoaded", () => {
     loginFormButton.addEventListener("click", (e) => {
         e.preventDefault(); // Prevent form submission
         loginSection.style.display = "none"; // Hide login section
+        signupSection.style.display = "none";
         dashboardSection.style.display = "block"; // Show dashboard section
     });
 
-    signupFormButton.addEventListener("click", (e) => {
-        e.preventDefault(); // Prevent form submission
-        signupSection.style.display = "none"; // Hide login section
-        dashboardSection.style.display = "block"; // Show dashboard section
+    exitIcon.addEventListener("click", () => {
+        const confirmLogout = confirm("¿Estás seguro de que deseas cerrar sesión?");
+        if (confirmLogout) {
+            // Hide the dashboard section and redirect to the landing page
+            dashboardSection.style.display = "none"; // Hide dashboard
+            loginSection.style.display = "none"; // Ensure login is hidden
+            signupSection.style.display = "none"; // Ensure signup is hidden
+        }
     });
+
 });

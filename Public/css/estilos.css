@@ -124,7 +124,7 @@ button{
     display: flex;
 }
 
-.home-left-container .text {
+.home-left-container .text, .home-left-container .email{
     font-size: 25px;
     display: flex;
     align-self: flex-end;
@@ -197,7 +197,6 @@ button{
     margin-top: 30px;
 }
 
-
 /* Funcionamiento Styling */
 #funcionamiento{
     padding: 50px 20px;
@@ -249,11 +248,13 @@ button{
     position: relative;
     text-align: right;
 }
- .bote-img img{
+
+.bote-img img{
     margin-left: 18rem;
     margin-right: 18rem;
     z-index: 10;
 }
+
 .cta-1,.cta-2,.cta-3,.cta-right-1,.cta-right-2,.cta-right-3 {
     width: 100px;
     height: 100px;
@@ -263,11 +264,11 @@ button{
     color: var(--cafe-oscuro);
     transition: width 0.7s;
 }
+
 .cta-1:hover, .cta-2:hover, .cta-3:hover{
     width: 300px;
     transition: width 0.7s;
 }
-
 
 .cta-right-1,.cta-right-2,.cta-right-2 {
     width: 100px;
@@ -278,6 +279,7 @@ button{
     color: var(--cafe-oscuro);
     transition: width 0.7s;
 }
+
 .cta-right-1:hover, .cta-right-2:hover, .cta-right-3:hover {
     width: 300px;
     transition: width 0.7s;
@@ -335,7 +337,7 @@ button{
     transition: opacity 0.5s;
 }
   
- .cta-1 .button-text, .cta-2 .button-text, .cta-3 .button-text {
+.cta-1 .button-text, .cta-2 .button-text, .cta-3 .button-text {
     opacity: 0;
     transition: opacity 0.5s;
     position:absolute;
@@ -893,15 +895,50 @@ button{
     left: 0;
     z-index: 1000; 
     width: 100%;
-    height: 100%; /* Ensures full viewport height */
-    overflow-y: auto; /* Allows scrolling within the dashboard */
+    height: 100%; 
+    overflow-y: auto; 
     box-sizing: border-box;
 }
 
-/* When dashboard is active, hide the rest of the page */
+.dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 30px;
+    align-items: center;
+    z-index: 1000;
+    height:100px;
+    width: 90%;
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+}
+
+.dashboard-header img{
+    height: 70px; 
+    width: auto;
+}
+
+.header-icons {
+    display: flex;
+    align-items: center;
+    gap: 20px; 
+}
+
+.header-icons img {
+    width: 50px;  
+    height: 50px; 
+    cursor: pointer; 
+}
+
+.header-icons:hover {
+    opacity: 0.8;
+}
+
 body.no-scroll {
     overflow: hidden;
-    height: 100%; /* Prevent scrolling of the entire page */
+    height: 100%;
 }
 
 .dashboard-container {
@@ -924,6 +961,8 @@ body.no-scroll {
 }
 
 .main-content {
+    position: absolute;
+    top:25%;
     max-width: 1200px;
     width: 100%;
     color:#04392C;
@@ -991,13 +1030,13 @@ body.no-scroll {
     flex: 1;
     height: 200px;
     margin-right: 20px;
+    margin-bottom: 5rem;
 }
 
 .widget-row {
     display: flex;
     gap: 20px;
 }
-
 
 /*Styling adicionales*/
 #inicio-sesion, #crear-cuenta, #dashboard {
