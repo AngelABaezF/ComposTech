@@ -52,7 +52,7 @@
                             <img src="img/compost-circle.png">
                         </div>
                         <div class="home-scroll-img">
-                            <img src="img/scroll.png">
+                            <a href="#sobre-nosotros"><img src="img/scroll.png"></a>
                         </div>
                     </div>
                 </div>
@@ -142,7 +142,7 @@
                         </div>
                         <div class="benefit-item-container">
                             <i class='bx bxs-leaf' style='color:#c9ff87'></i>
-                            <span class="benefit-text"><font color="#C9FF87">Alertas inteligentes:</font> Gráficos e indicadores claros en tu dashboard.</span>
+                            <span class="benefit-text"><font color="#C9FF87">Alertas inteligentes:</font> ¡nunca más olvides cuidar tu compost!</span>
                         </div>
                     </div>
                 </div>
@@ -199,30 +199,28 @@
                    </div>
 
                 <div class="form-container">
-                    <form action="#">
-                      <h2>Contáctanos</h2>
-                      <p>¿Tienes dudas o quieres saber más? Estamos aquí para ayudarte.</p>
-                      <label for="fname">Nombre</label>
-                      <input type="text" id="fname" name="firstname">
-                  
-                      <label for="lname">Apellido</label>
-                      <input type="text" id="lname" name="lastname">
-                      
-                      <label for="lname">Email</label>
-                      <input type="text" id="ename" name="email">
-                      
-                      <label for="subject">Mensaje</label>
-                      <textarea id="subject" name="subject" style="height:150px"></textarea>
-                  
-                      <input type="submit" value="Enviar mensaje">
-                    </form>
+                    <form action="https://api.web3forms.com/submit" method="POST">
+                        <h2>Contáctanos</h2>
+                        <p>¿Tienes dudas o quieres saber más? Estamos aquí para ayudarte.</p>
+                        <input type="hidden" name="access_key" value="9734cff8-d665-4239-93b9-89949a13d5f2">
+                        <label for="fname">Nombre</label>
+                        <input type="text" id="fname" name="firstname">
+                        
+                        <label for="lname">Email</label>
+                        <input type="email" id="ename" name="email">
+                        
+                        <label for="subject">Mensaje</label>
+                        <textarea id="subject" name="subject" style="height:150px"></textarea>
+                          
+                        <input type="submit" value="Enviar mensaje">
+                      </form>
                   </div>
                 </div>
             </section>
             <footer class="footer">
                 <div class="footer__addr">
                   <div class="footer__logo">
-                    <img src="img/footer-logo.svg">
+                    <a href="#home"><img src="img/footer-logo.svg"></a>
                     <div class="legal">
                         <p>&copy; 2024 COMPOSTECH. All rights reserved.</p>
                     </div>
@@ -254,53 +252,61 @@
         </main>
         <section id="inicio-sesion">
             <div class="login-container">
-                <form>
+                <form id="loginForm">
                     <div class="header-form">
-                        <img src = "img/logo-icon.png">
+                        <img src="img/logo-icon.png">
                         <h2>Únete a COMPOSTECH</h2>
                         <div class="form-link">
                             <p>¿No tienes cuenta? <a href="#crear-cuenta" class="link signup-link">Crear cuenta</a></p>
                         </div>
                     </div>
-                    <label for="lname">Email</label>
-                    <input type="text" id="ename" name="email">
-                    <label for="pname">Contraseña</label>
-                    <input type="password" id="pname" name="password">
+                    <label for="login-email">Email</label>
+                    <input type="text" id="login-email" name="email">
+                    <label for="login-password">Contraseña</label>
+                    <input type="password" id="login-password" name="password">
                     <a href="#dashboard"><button type="submit">Iniciar sesión</button></a>
                 </form>
             </div>
         </section>  
         <section id="crear-cuenta">
             <div class="signup-container">
-                <form>
+                <form id="signupForm">
                     <div class="header-form">
-                        <img src = "img/logo-icon.png">
+                        <img src="img/logo-icon.png">
                         <h2>Bienvenido a COMPOSTECH</h2>
                         <div class="form-link">
                             <p>¿Ya tienes cuenta? <a href="#inicio-sesion" class="link login-link">Iniciar sesión</a></p>
                         </div>
                     </div>
-                    <label for="lname">Email</label>
-                    <input type="text" id="ename" name="email">
-                    <label for="pname">Contraseña</label>
-                    <input type="password" id="pname" name="password">
+                    <label for="signup-name">Nombre</label>
+                    <input type="text" id="signup-name" name="name">
+                    <label for="signup-email">Email</label>
+                    <input type="text" id="signup-email" name="email">
+                    <label for="signup-password">Contraseña</label>
+                    <input type="password" id="signup-password" name="password">
                     <a href="#dashboard"><button type="submit">Crear cuenta</button></a>
                 </form>
             </div>
         </section>  
         <section id="dashboard">
             <div class="dashboard-container">
+                <div class="dashboard-header">
+                    <div class="logo-container">
+                        <img src="img/logo-icon.png">
+                    </div>
+                    <div class="header-icons">
+                        <img src="img/exit.svg" id="exit-icon">
+                    </div>
+                </div>
                 <div class="main-content">
                     <div class="bienvenida-header">
-                        <h2>¡Hola, [usuario]!</h2>
-                        <p>Bienvenido a tu dashboard personalizado. Aquí podrás monitorear el desempeño de tu cajón inteligente en tiempo real.</p>
+                        <h2>¡Bienvenido!</h2>
+                        <p>Aquí podrás monitorear el desempeño de tu cajón inteligente en tiempo real.</p>
                     </div>
                     
                     <!-- Graph Widget -->
                     <div class="widget-large">
-                        <div class="widget-content">
-                            <div><canvas id="historicalChart"></canvas></div>
-                        </div>
+                        <canvas id="historicalChart"></canvas>
                     </div>
             
                     <div class="widget-row">

@@ -8,6 +8,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     const loginSection = document.querySelector("#inicio-sesion"); // Login section
     const signupSection = document.querySelector("#crear-cuenta"); // Signup section
     const dashboardSection = document.querySelector("#dashboard"); // Dashboard section
+    const exitIcon = document.querySelector("#exit-icon"); // Exit icon for logout
 
     // Initially hide all sections except the header
     loginSection.style.display = "none";
@@ -38,6 +39,58 @@ document.addEventListener("DOMContentLoaded", async () => {
         loginSection.style.display = "block";
     });
 
+    // Handle form submission for login
+    document.getElementById("loginForm").addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const email = document.getElementById("login-email").value;
+        const password = document.getElementById("login-password").value;
+
+        const response = await fetch('http://alex-iot.us-east-1.elasticbeanstalk.com/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email, password })
+        });
+
+        if (response.ok) {
+            loginSection.style.display = "none";
+            dashboardSection.style.display = "block";
+        } else {
+            console.error("Error al iniciar sesión");
+        }
+    });
+
+    // Handle form submission for signup
+    document.getElementById("signupForm").addEventListener("submit", async (e) => {
+        e.preventDefault();
+    
+        // Captura de valores del formulario    
+        const name = document.getElementById("signup-name").value;
+        const email = document.getElementById("signup-email").value;
+        const password = document.getElementById("signup-password").value;
+    
+        try {
+            // Llamada a la API para registrarse
+            const response = await fetch('http://alex-iot.us-east-1.elasticbeanstalk.com/signup', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },    
+                body: JSON.stringify({ name, email, password })
+            });
+    
+            // Verificación de respuesta del servidor
+            if (response.ok) {
+                const data = await response.json();
+                alert(data.message); // Muestra mensaje de éxito
+                window.location.href = "#inicio-sesion"; // Redirige al login
+            } else {
+                const errorData = await response.json();
+                alert(errorData.message || "Error al registrarse");
+            }
+        } catch (error) {
+            console.error("Error al enviar solicitud de registro:", error.message);
+            alert("Ocurrió un error al registrarse");
+        }
+    });
+
     // Show dashboard section when login form button is clicked
     loginFormButton.addEventListener("click", (e) => {
         e.preventDefault(); // Prevent form submission
@@ -49,6 +102,16 @@ document.addEventListener("DOMContentLoaded", async () => {
         e.preventDefault(); // Prevent form submission
         signupSection.style.display = "none"; // Hide login section
         dashboardSection.style.display = "block"; // Show dashboard section
+    });
+
+    exitIcon.addEventListener("click", () => {
+        const confirmLogout = confirm("¿Estás seguro de que deseas cerrar sesión?");
+        if (confirmLogout) {
+            // Hide the dashboard section and redirect to the landing page
+            dashboardSection.style.display = "none"; // Hide dashboard
+            loginSection.style.display = "none"; // Ensure login is hidden
+            signupSection.style.display = "none"; // Ensure signup is hidden
+        }
     });
     
     // Conexión al broker MQTT
@@ -105,7 +168,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
 
     //async function fetchHistoricalData() {
-        const response = await fetch('http://localhost:3001/historicalData');
+        const response = await fetch('http://alex-iot.us-east-1.elasticbeanstalk.com/historicalData');
         const data = await response.json();
         console.log(data)
         const timestamps = data.map(d => new Date(`${d.date.substring(0,10)}T${d.time}Z`));
@@ -116,50 +179,29 @@ document.addEventListener("DOMContentLoaded", async () => {
         console.log(soilHumidityData)
 
 
-        const ctx = document.getElementById('historicalChart')
-        new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels:timestamps,
-            datasets: [
-                { label: 'Temperatura', data: temperatureData, borderColor: 'rgba(255, 99, 132, 1)', fill: false },
-                { label: 'Humedad', data: humidityData, borderColor: 'rgba(54, 162, 235, 1)', fill: false },
-                { label: 'pH', data: phData, borderColor: 'rgba(75, 192, 192, 1)', fill: false },
-                { label: 'Humedad Suelo', data: soilHumidityData, borderColor: 'rgba(153, 102, 255, 1)', fill: false }
-            ]
-        },
-        options: {
-            scales: {
-                x: {
-                    type: 'time',
-                    time: { unit: 'second', tooltipFormat: 'HH:mm:ss' },
-                    title: { display: true, text: 'Tiempo' }
-                },
-                y: { title: { display: true, text: 'Valor' } }
-            }
+        const ctx = document.getElementById('historicalChart');
+new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels: timestamps,
+        datasets: [
+            { label: 'Temperatura', data: temperatureData, borderColor: 'rgba(255, 99, 132, 1)', fill: false },
+            { label: 'Humedad', data: humidityData, borderColor: 'rgba(54, 162, 235, 1)', fill: false },
+            { label: 'pH', data: phData, borderColor: 'rgba(75, 192, 192, 1)', fill: false },
+            { label: 'Humedad Suelo', data: soilHumidityData, borderColor: 'rgba(153, 102, 255, 1)', fill: false }
+        ]
+    },
+    options: {
+        responsive: true,  // Ensures chart resizes with window
+        maintainAspectRatio: false,  // Prevents aspect ratio issues
+        scales: {
+            x: {
+                type: 'time',
+                time: { unit: 'second', tooltipFormat: 'HH:mm:ss' },
+                title: { display: true, text: 'Tiempo' }
+            },
+            y: { title: { display: true, text: 'Valor' } }
         }
-    });
-
-
-
-        //return data;
-    //}
-
-    /*fetchHistoricalData().then(data => {
-        const timestamps = data.map(d => new Date(`${d.date}T${d.time}Z`));
-        const temperatureData = data.filter(d => d.sensorId === 1).map(d => ({ x: new Date(`${d.date}T${d.time}Z`), y: d.value }));
-        const humidityData = data.filter(d => d.sensorId === 2).map(d => ({ x: new Date(`${d.date}T${d.time}Z`), y: d.value }));
-        const phData = data.filter(d => d.sensorId === 3).map(d => ({ x: new Date(`${d.date}T${d.time}Z`), y: d.value }));
-        const soilHumidityData = data.filter(d => d.sensorId === 4).map(d => ({ x: new Date(`${d.date}T${d.time}Z`), y: d.value }));
-
-        historicalChart.data.labels = timestamps;
-        historicalChart.data.datasets[0].data = temperatureData;
-        historicalChart.data.datasets[1].data = humidityData;
-        historicalChart.data.datasets[2].data = phData;
-        historicalChart.data.datasets[3].data = soilHumidityData;
-
-        historicalChart.update();
-    }).catch(error => {
-        console.error('Error al obtener los datos históricos:', error);
-    });*/
+    }
+});
 });    

@@ -2,9 +2,12 @@
 //node --watch app.js (para que se actualice sola)
 const express = require('express');
 const cors = require('cors');
+const session = require('express-session');
+const bcrypt = require('bcrypt');
 const mqtt = require('mqtt');
 const pool = require('./helpers/mysql-config');
 const historicalDataRoute = require('./routes/historicalData');
+const authRoute = require('./routes/auth');
 require('dotenv').config();
 
 const app = express();
@@ -12,8 +15,11 @@ const port = process.env.PORT || 3000;
 
 app.use(cors());
 app.use(express.json());
+app.use(session({ secret: 'your-secret-key', resave: false, saveUninitialized: true }));
+
 
 app.use('/historicalData', historicalDataRoute);
+app.use('/', authRoute);
 
 // Configuración MQTT
 const mqttClient = mqtt.connect(`ws://${process.env.MQTTHOST}`, {

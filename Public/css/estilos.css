@@ -124,7 +124,7 @@ button{
     display: flex;
 }
 
-.home-left-container .text {
+.home-left-container .text, .home-left-container{
     font-size: 25px;
     display: flex;
     align-self: flex-end;
@@ -505,10 +505,6 @@ button{
     font-size: 12px; 
 }
 
-.image-container img:hover{
-    opacity: 0.5;
-}
-
 .image-container i{
     margin-top: 5px;
     font-size:40px;
@@ -516,13 +512,33 @@ button{
 }
 
  /* Contacto Styling */
-#contacto{
+ #contacto {
     position: relative;
     background-color: var(--verde-claro);
-    height:100vh;
+    height: 100vh; 
+    display: flex;
 }
 
-.contacto-container input[type=text], select, textarea {
+.contacto-container {
+    display: flex;
+    width: 100%; 
+    height: 89%; 
+    max-width: 800px;
+    position: relative;
+}
+
+.form-container {
+    background-color: var(--verde-gris);
+    padding: 40px; 
+    border-radius: 0 60px 60px 0; 
+    height: 100%; 
+    display: flex;
+    flex-direction: row;
+    justify-content: center; 
+    z-index: 0;
+}
+
+.contacto-container input[type=text], input[type=email], select, textarea {
     width: 100%;
     padding: 12px;
     border-radius: 10px;
@@ -537,7 +553,7 @@ button{
 .contacto-container .radar-img img{
     position: absolute;
     max-width: 600px;
-    left:30%;
+    left:55%;
     top:15%;
     z-index: 1;
 }
@@ -545,8 +561,8 @@ button{
 .contacto-container .compost-3D img{
     position: absolute;
     max-width: 180px;
-    left:45%;
-    top:40%;
+    left:85%;
+    top:42%;
     z-index:2;
     transform: scaleX(-1);
 }
@@ -591,6 +607,7 @@ button{
     left: -5%;
     z-index:3;
   }
+
 
   /*Footer Styling*/
   .footer {
@@ -893,15 +910,54 @@ button{
     left: 0;
     z-index: 1000; 
     width: 100%;
-    height: 100%; /* Ensures full viewport height */
-    overflow-y: auto; /* Allows scrolling within the dashboard */
+    height: 100%; 
+    overflow-y: auto; 
     box-sizing: border-box;
 }
 
-/* When dashboard is active, hide the rest of the page */
+.dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 30px;
+    align-items: center;
+    z-index: 1000;
+    height:100px;
+    width: 90%;
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+}
+
+.dashboard-header img{
+    height: 70px; 
+    width: auto;
+}
+
+.header-icons {
+    display: flex;
+    align-items: center;
+    gap: 20px; 
+}
+
+.header-icons img {
+    width: 50px;  
+    height: 50px; 
+    cursor: pointer; 
+}
+
+.header-icons:hover {
+    background-color: var(--cafe-transparency);
+    border: none;
+    border-radius:80px;
+    height: 80px;
+    width: 80px;
+}
+
 body.no-scroll {
     overflow: hidden;
-    height: 100%; /* Prevent scrolling of the entire page */
+    height: 100%;
 }
 
 .dashboard-container {
@@ -924,6 +980,8 @@ body.no-scroll {
 }
 
 .main-content {
+    position: absolute;
+    top:25%;
     max-width: 1200px;
     width: 100%;
     color:#04392C;
@@ -991,6 +1049,7 @@ body.no-scroll {
     flex: 1;
     height: 200px;
     margin-right: 20px;
+    margin-bottom: 5rem;
 }
 
 .widget-row {
@@ -998,6 +1057,11 @@ body.no-scroll {
     gap: 20px;
 }
 
+.widget-large canvas {
+    width: 100%;
+    height: 100%;
+    display: block; /* Ensure canvas takes up the full space */
+}
 
 /*Styling adicionales*/
 #inicio-sesion, #crear-cuenta, #dashboard {
