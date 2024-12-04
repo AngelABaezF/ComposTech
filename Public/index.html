@@ -1,11 +1,357 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ComposTech</title>
-</head>
-<body>
-    
-</body>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale =1.0">
+        <title>ComposTech Website</title>
+        <link rel="stylesheet" href="css/estilos.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+        <script src="https://unpkg.com/mqtt/dist/mqtt.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
+    </head>
+    <body>
+        <header class="nav-container">
+            <div class="logo">
+                <a href="#home"><img src="img/Logo.png"></a>
+            </div>
+            <nav>
+                <ul class="nav-links">
+                    <li>
+                        <a href="#sobre-nosotros">SOBRE NOSOTROS</a>
+                    </li>
+                    <li>
+                        <a href="#funcionamiento">FUNCIONAMIENTO</a>
+                    </li>
+                    <li>
+                        <a href="#beneficios">BENEFICIOS</a>
+                    </li>
+                    <li>
+                        <a href="#equipo">EQUIPO</a>
+                    </li>
+                    <li>
+                        <a href="#contacto">CONTACTO</a>
+                    </li>
+                </ul>
+            </nav>
+            <a href="#inicio-sesion"><button>Iniciar sesión</button></a>
+        </header>
+        <main>
+            <section id="home">
+                <div class="home-container">
+                    <div class="home-left-container">
+                        <h2>TU ALIADO <font color="#F2CD27">ECOLÓGICO</font> EN CASA</h2>
+                        <p class="home-paragraph">
+                            <img src="img/planta-wifi.png"  class="home-image"><span class="text">Inteligencia para el cuidado de la composta</span>
+                        </p>
+                    </div>
+                    <div class="home-right-container">
+                        <div class="home-compost-img">
+                            <img src="img/compost-circle.png">
+                        </div>
+                        <div class="home-scroll-img">
+                            <a href="#sobre-nosotros"><img src="img/scroll.png"></a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="sobre-nosotros">
+                <div class="about-container">
+                    <div class="about-left-container">
+                        <h2>SOBRE NOSOTROS</h2>
+                        <p>En ComposTech, estamos comprometidos con soluciones inteligentes para un futuro más verde. Nuestra solución basada en IoT está diseñada para hacer que 
+                            el proceso de compostaje sea fácil, controlado y accesible, permitiendo a nuestros usuarios monitorear su 
+                            desperdicio orgánico de manera eficiente.</p>
+                     </div>
+                </div>
+            </section>
+            <section id="funcionamiento">
+                <div class="funcionamiento-container"> 
+                    <div class="funcionamiento-header">
+                        <h2>DESCUBRE CÓMO FUNCIONA COMPOSTECH</h2>
+                    </div>
+                    <div class ="funcionamiento-middle-container">
+                            <div class="left-buttons">
+                                <div class="left-button-container">  
+                                    <button class="cta-1">
+                                    <i class='bx bx-user' style='color:#373027'></i>
+                                    <span class="button-text">Crear cuenta</span>
+                                    </button>
+                                </div>      
+                                <div class="left-button-container">  
+                                    <button class="cta-2">
+                                    <i class='bx bx-broadcast'></i>
+                                    <span class="button-text">Conectar</span>
+                                    </button>
+                                </div>      
+                                <div class="left-button-container">  
+                                    <button class="cta-3">
+                                        <i class='bx bx-slider-alt'></i>
+                                    <span class="button-text">Configurar</span>
+                                    </button>
+                                </div>      
+                            </div>
+                            <div class="bote-img">  
+                                <img src="img/bote-abierto.png">
+                            </div>
+                            <div class="right-buttons">
+                                <div class="right-button-container">  
+                                    <button class="cta-right-1">
+                                    <i class='bx bx-analyse' style='color:#373027' ></i>
+                                    <span class="button-text-right">Monitorear</span>
+                                    </button>
+                                </div>      
+                                <div class="right-button-container">  
+                                    <button class="cta-right-2">
+                                    <i class='bx bx-bell'></i>
+                                    <span class="button-text-right">Notificar</span>
+                                    </button>
+                                </div>      
+                                <div class="right-button-container">  
+                                    <button class="cta-right-3">
+                                    <i class='bx bx-leaf'></i>
+                                    <span class="button-text-right">Compostar</span>
+                                    </button>
+                                </div>  
+                            </div>
+                    </div>
+                </div>
+            </section>
+            <section id="beneficios">
+                <div clas="beneficios-container">
+                    <div class="bote-degradado">
+                        <img src="img/trash-gradient.png">
+                    </div>
+                    <div class="top-left">
+                        <h2>CONOCE LOS BENEFICIOS</h2>
+                    </div>
+                    <div class="top-right">
+                        <h2>DE USAR COMPOSTECH</h2>
+                    </div>
+                    <div class="benefits-list">
+                        <div class="benefit-item-container">
+                            <i class='bx bxs-leaf' style='color:#c9ff87'></i>
+                            <span class="benefit-text"><font color="#C9FF87">Automatización:</font> menos tiempo dedicado al monitoreo manual.</span>
+                        </div>
+                        <div class="benefit-item-container">
+                            <i class='bx bxs-leaf' style='color:#c9ff87'></i>
+                            <span class="benefit-text"><font color="#C9FF87">Datos precisos:</font> gráficos e indicadores claros en tu dashboard.</span>
+                        </div>
+                        <div class="benefit-item-container">
+                            <i class='bx bxs-leaf' style='color:#c9ff87'></i>
+                            <span class="benefit-text"><font color="#C9FF87">Alertas inteligentes:</font> ¡nunca más olvides cuidar tu compost!</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section id="equipo">
+                <div class="equipo-container">
+                    <div class="team-header">
+                        <i class='bx bx-leaf' style='color:#04392c'></i>
+                        <h2>Conoce al equipo de <font color="#749C67">COMPOSTECH</font> </h2>
+                    </div>
+                    <div class="image-row">
+                        <div class="image-container">
+                          <img src="img/alex-pic.png">
+                          <h3>Alexander Báez</h3>
+                          <p class="title">Líder de proyectos</p>
+                          <a href="https://www.linkedin.com/in/%C3%A1ngel-alexander-b%C3%A1ez-flores/" target="_blank" class="linkedin-link">
+                            <i class="fa fa-linkedin-square"></i>
+                          </a>
+                        </div>
+                        <div class="image-container">
+                          <img src="img/ale-pic.png">
+                          <h3>Alejandra Galván</h3>
+                          <p class="title">Líder de front</p>
+                          <a href="https://www.linkedin.com/in/alejandra-galvan-bojorquez/" target="_blank" class="linkedin-link">
+                            <i class="fa fa-linkedin-square"></i>
+                          </a>
+                        </div>
+                        <div class="image-container">
+                          <img src="img/marco-pic.png">
+                          <h3>Marco Islas</h3>
+                          <p class="title">Líder de electrónica</p>
+                          <a href="https://www.linkedin.com/in/marco-armando-islas-brito-555aba288/" target="_blank" class="linkedin-link">
+                            <i class="fa fa-linkedin-square"></i>
+                          </a>
+                        </div>
+                        <div class="image-container">
+                          <img src="img/osmar-pic.png">
+                          <h3>Osmar Sánchez</h3>
+                          <p class="title">Líder de back</p>
+                          <a href="https://www.linkedin.com/in/osmar-enrique-s%C3%A1nchez-mart%C3%ADnez-5a9b702a1/" target="_blank" class="linkedin-link">
+                            <i class="fa fa-linkedin-square"></i>
+                          </a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section id="contacto">
+                <div class="contacto-container">
+                    <div class="radar-img">
+                        <img src="img/radar.png">
+                    </div>
+                   <div class="compost-3D">
+                        <img src="img/compost-icon.png">
+                   </div>
+
+                <div class="form-container">
+                    <form action="https://api.web3forms.com/submit" method="POST">
+                        <h2>Contáctanos</h2>
+                        <p>¿Tienes dudas o quieres saber más? Estamos aquí para ayudarte.</p>
+                        <input type="hidden" name="access_key" value="9734cff8-d665-4239-93b9-89949a13d5f2">
+                        <label for="fname">Nombre</label>
+                        <input type="text" id="fname" name="firstname">
+                        
+                        <label for="lname">Email</label>
+                        <input type="email" id="ename" name="email">
+                        
+                        <label for="subject">Mensaje</label>
+                        <textarea id="subject" name="subject" style="height:150px"></textarea>
+                          
+                        <input type="submit" value="Enviar mensaje">
+                      </form>
+                  </div>
+                </div>
+            </section>
+            <footer class="footer">
+                <div class="footer__addr">
+                  <div class="footer__logo">
+                    <a href="#home"><img src="img/footer-logo.svg"></a>
+                    <div class="legal">
+                        <p>&copy; 2024 COMPOSTECH. All rights reserved.</p>
+                    </div>
+                  </div>
+                </div>
+                <ul class="footer__nav">
+                      <li>
+                        <a href="#sobre-nosotros">SOBRE NOSOTROS</a>
+                      </li>
+
+                      <li>
+                        <a href="#funcionamiento">FUNCIONAMIENTO</a>
+                      </li>
+              
+                      <li>
+                        <a href="#beneficios">BENEFICIOS</a>
+                      </li>
+                          
+                      <li>
+                        <a href="#equipo">EQUIPO</a>
+                      </li>
+
+                      <li>
+                        <a href="#contacto">CONTACTO</a>
+                      </li>
+                </ul>
+                </div>
+              </footer>
+        </main>
+        <section id="inicio-sesion">
+            <div class="login-container">
+                <form method="POST" id="loginForm">
+                    <div class="header-form">
+                        <img src="img/logo-icon.png" alt="COMPOSTECH Logo">
+                        <h2>Únete a COMPOSTECH</h2>
+                        <div class="form-link">
+                            <p>¿No tienes cuenta? <a href="#crear-cuenta" class="link signup-link">Crear cuenta</a></p>
+                        </div>
+                    </div>
+                    <label for="login-email">Email</label>
+                    <input type="text" id="loginEmail" name="email">
+                    <label for="login-password">Contraseña</label>
+                    <input type="password" id="loginPassword" name="password">
+                    <button type="submit">Iniciar sesión</button>
+                </form>
+            </div>
+        </section>  
+        <section id="crear-cuenta">
+            <div class="signup-container">
+                <form id="signupForm">
+                    <div class="header-form">
+                        <img src="img/logo-icon.png" alt="COMPOSTECH Logo">
+                        <h2>Bienvenido a COMPOSTECH</h2>
+                        <div class="form-link">
+                            <p>¿Ya tienes cuenta? <a href="#inicio-sesion" class="link login-link">Iniciar sesión</a></p>
+                        </div>
+                    </div>
+                    <label for="signup-name">Nombre</label>
+                    <input type="text" id="signupName" name="name">
+                    <label for="signup-email">Email</label>
+                    <input type="text" id="signupEmail" name="email">
+                    <label for="signup-password">Contraseña</label>
+                    <input type="password" id="signupPassword" name="password">
+                    <button type="submit">Crear cuenta</button>
+                </form>
+            </div>
+        </section>
+        <section id="dashboard">
+            <div class="dashboard-container">
+                <div class="dashboard-header">
+                    <div class="logo-container">
+                        <img src="img/logo-icon.png">
+                    </div>
+                    <div class="header-icons">
+                        <img src="img/exit.svg" id="exit-icon">
+                    </div>
+                </div>
+                <div class="main-content">
+                    <div class="bienvenida-header">
+                        <h2>¡Bienvenido!</h2>
+                        <p>Aquí podrás monitorear el desempeño de tu cajón inteligente en tiempo real.</p>
+                    </div>
+                    
+                    <!-- Graph Widget -->
+                    <div class="widget-large">
+                        <canvas id="historicalChart"></canvas>
+                    </div>
+            
+                    <div class="widget-row">
+                        <div class="widget-small">
+                            <img src="img/temp-int.png" alt="Widget 2 Icon" class="widget-icon">
+                            <div class="widget-content">
+                                <h1>EXTERIOR</h1>
+                                <p>Temperatura</p>
+                                <h2 id="Temperatura">--°C</h2>
+                            </div>
+                        </div>
+                        <div class="widget-small">
+                            <img src="img/ph-icon.png" alt="Widget 3 Icon" class="widget-icon">
+                            <div class="widget-content">
+                                <h1>INTERIOR</h1>
+                                <p>pH</p>
+                                <h2 id="pH">--</h2>
+                            </div>
+                        </div>
+                    </div>
+            
+                    <div class="widget-row">
+                        <div class="widget-medium">
+                            <img src="img/humedad-ext.png" alt="Widget 4 Icon" class="widget-icon">
+                            <div class="widget-content">
+                                <h1>EXTERIOR</h1>
+                                <p>Humedad</p>
+                                <h2 id="Humedad">-- g/m</h2>
+                            </div>
+                        </div>
+                        <div class="widget-medium">
+                            <img src="img/humedad-interior.png" alt="Widget 5 Icon" class="widget-icon">
+                            <div class="widget-content">
+                                <h1>INTERIOR</h1>
+                                <p>Humedad</p>
+                                <h2 id="HumedadSuelo">-- g/m</h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>            
+        <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
+        <script src="js/scripts.js"></script>
+    </body>
 </html>

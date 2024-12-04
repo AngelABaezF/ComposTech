@@ -1,74 +1,111 @@
-const express = require('express')
-const app = express()
-require('dotenv').config()
-const mqtt = require('mqtt')
-const cors = require('cors')
-const port = process.env.PORT
-const branch = require('./routes/branch')
+const express = require("express");
+const cors = require("cors");
+const session = require("express-session");
+const bcrypt = require("bcrypt");
+const mqtt = require("mqtt");
+const pool = require("./helpers/mysql-config");
+const historicalDataRoute = require("./routes/historicalData");
+const loginRoutes = require("./routes/login");
+const signupRoutes = require("./routes/signup");
+require("dotenv").config();
 
-app.use(cors())
-app.use(express.json())
-app.use('/', branch) //Si agregamos /Branch debes borrarlo en el otro
+const app = express();
+const port = process.env.PORT || 3000;
+
+app.use(cors());
+app.use(express.json());
+app.use(
+  session({ secret: "your-secret-key", resave: false, saveUninitialized: true })
+);
+
+app.use("/", historicalDataRoute);
+app.use("/", loginRoutes);
+app.use("/", signupRoutes);
+
+const requestLogger = (req, res, next) => {
+  console.log(`Incoming request: ${req.method} ${req.url}`);
+  console.log("Request body:", req.body);
+  next();
+};
+
+app.use(requestLogger);
+
+// Configuración MQTT
+const mqttClient = mqtt.connect(`ws://${process.env.MQTTHOST}`, {
+  clientId: "nodejs_mqtt_client5",
+});
+
+// Mapeo de tópicos a identificadores en la base de datos
+const topicToSensorId = {
+  Temperatura: 1,
+  Humedad: 2,
+  pH: 3,
+  HumedadSuelo: 4,
+};
+
+// Tópicos a los que se suscribe
+const topics = ["Temperatura", "pH", "HumedadSuelo", "Humedad"];
+
+mqttClient.on("connect", () => {
+  console.log("Conectado al broker MQTT.");
+  mqttClient.subscribe(topics, (err) => {
+    if (err) {
+      console.error("Error al suscribirse a los tópicos:", err.message);
+    } else {
+      console.log("Suscrito a los tópicos:", topics.join(", "));
+    }
+  });
+});
+
+// Cola para almacenar los datos recibidos (manejando múltiples mensajes)
+const dataQueue = [];
+
+// Manejo de mensajes desde MQTT
+mqttClient.on("message", async (topic, message) => {
+  const value = parseFloat(message.toString());
+  const sensorId = topicToSensorId[topic];
+  const currentDate = new Date();
+
+  const date = currentDate.toISOString().split("T")[0];
+  const time = currentDate.toTimeString().split(" ")[0];
+
+  if (!sensorId) {
+    console.error(`Tópico desconocido: ${topic}`);
+    return;
+  }
+
+  dataQueue.push({ sensorId, value, date, time, deviceId: 1 });
+  console.log(`Datos encolados: Sensor ID ${sensorId} (${topic}) -> ${value}`);
+});
+
+// Procesar datos de la cola e insertarlos en la base de datos
+setInterval(async () => {
+  if (dataQueue.length > 0) {
+    const data = dataQueue.shift();
+    try {
+      const sql = `
+                INSERT INTO data (idTypeSensor, value, date, time, idDevice)
+                VALUES (?, ?, ?, ?, ?)
+            `;
+      await pool.query(sql, [
+        data.sensorId,
+        data.value,
+        data.date,
+        data.time,
+        data.deviceId,
+      ]);
+      console.log(
+        `Datos guardados: Sensor ID ${data.sensorId} -> ${data.value}`
+      );
+    } catch (error) {
+      console.error(
+        "Error al guardar los datos en la base de datos:",
+        error.message
+      );
+    }
+  }
+}, 500);
 
 app.listen(port, () => {
-    console.log("Servidor corriendo en el puerto "+ port)
-})
-
-// Conexión al broker MQTT
-const mqttClient = mqtt.connect(`ws://${process.env.MQTTHOST}`, {
-    clientId: 'nodejs_mqtt_client'
+  console.log(`Servidor corriendo en el puerto ${port}`);
 });
-
-// Topico al que se suscribe
-const topic = 'test';
-
-mqttClient.on('connect', () => {
-    console.log(`Conectado al broker MQTT.`);
-    mqttClient.subscribe(topic, (err) => {
-        if (err) {
-            console.error(`Error al suscribirse al tópico: ${err.message}`);
-        } else {
-            console.log(`Suscrito al tópico: ${topic}`);
-        }
-    });
-});
-
-// Manejo de mensajes recibidos desde MQTT
-mqttClient.on('message', async (topic, message) => {
-    try {
-        console.log(`Mensaje recibido en ${topic}:`, message.toString());
-        /*const response = await fetch('http://servicio-iot.us-east-1.elasticbeanstalk.com/branch', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                branchNo: 'B018',
-                street: '123',
-                city: message.toString(),
-                postcode: '123'
-            })
-        })
-
-        if (response.ok) {
-            const responseData = await response.json();
-            console.log(Datos enviados exitosamente:, responseData);
-        } else {
-            console.error(Error en la respuesta del servidor: ${response.statusText});
-        }*/
-
-        // Enviar datos al endpoint
-        /*axios.post('http://localhost:3000/branch', data)
-            .then((response) => {
-                console.log(Datos enviados exitosamente:, response.data);
-            })
-            .catch((error) => {
-                console.error(Error al enviar datos:, error.message);
-            });*/
-    } catch (error) {
-        console.error("Error procesando el mensaje:", error.message);
-    }
-});
-
-//detener ctrl + c
-//node --watch app.js (para que se actualice sola)
