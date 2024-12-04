@@ -12,6 +12,7 @@ exports.getHistoricalData = async (req, res) => {
         res.json(rows);
     } catch (error) {
         console.error('Error al obtener los datos históricos:', error.message);
-        res.status(500).send('Error al obtener los datos históricos');
+        // Use res.json() for a structured error response
+        res.status(500).json({ message: 'Error al obtener los datos históricos', error: error.message });
     }
 };
