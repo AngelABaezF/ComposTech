@@ -25,8 +25,8 @@ DHT sensorDHT(DHTPIN, DHTTYPE);
 Servo servo;
 
 // WiFi
-const char *ssid = "AABF";
-const char *password = "27-01-23";
+const char *ssid = "iPhone de Ale";
+const char *password = "motomami123";
 
 // MQTT Broker
 const char *mqtt_broker = "3.231.109.67";

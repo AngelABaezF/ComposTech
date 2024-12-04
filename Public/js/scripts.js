@@ -2,8 +2,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     const loginButton = document.querySelector("a[href='#inicio-sesion']");
     const signupLink = document.querySelector(".signup-link"); // Link to signup section
     const loginLink = document.querySelector(".login-link"); // Link to login section
-    const loginFormButton = document.querySelector("a[href='#dashboard']"); // Login form button
-    const signupFormButton = document.querySelector("a[href='#dashboard']"); // Login form button
 
     const loginSection = document.querySelector("#inicio-sesion"); // Login section
     const signupSection = document.querySelector("#crear-cuenta"); // Signup section
@@ -41,21 +39,31 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     // Handle form submission for login
     document.getElementById("loginForm").addEventListener("submit", async (e) => {
-        e.preventDefault();
-        const email = document.getElementById("login-email").value;
-        const password = document.getElementById("login-password").value;
+        e.preventDefault(); // Previene el comportamiento por defecto, que es lo correcto
+        const email = document.getElementById("loginEmail").value;
+        const password = document.getElementById("loginPassword").value;
+        
+        if (!email || !password) {
+            alert("Porfavor llena los campos");
+            return;
+        }
 
-        const response = await fetch('http://alex-iot.us-east-1.elasticbeanstalk.com/login', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email, password })
-        });
-
-        if (response.ok) {
-            loginSection.style.display = "none";
-            dashboardSection.style.display = "block";
-        } else {
-            console.error("Error al iniciar sesión");
+        try {
+            const response = await fetch('http://alex-iot.us-east-1.elasticbeanstalk.com/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, password })
+            });
+        
+            if (response.ok) {
+                loginSection.style.display = "none";
+                dashboardSection.style.display = "block";
+            } else {
+                console.error("Error al iniciar sesión");
+            }
+        } catch (error) {
+            console.error("Error conectando al servidor:", error)
+            alert("Error conectando al servidor")
         }
     });
 
@@ -64,10 +72,15 @@ document.addEventListener("DOMContentLoaded", async () => {
         e.preventDefault();
     
         // Captura de valores del formulario    
-        const name = document.getElementById("signup-name").value;
-        const email = document.getElementById("signup-email").value;
-        const password = document.getElementById("signup-password").value;
-    
+        const name = document.getElementById("signupName").value;
+        const email = document.getElementById("signupEmail").value;
+        const password = document.getElementById("signupPassword").value;
+        
+        if (!email || !password || !name) {
+            alert('Favor de llenar todos los campos');
+            return;
+        }
+
         try {
             // Llamada a la API para registrarse
             const response = await fetch('http://alex-iot.us-east-1.elasticbeanstalk.com/signup', {
@@ -79,8 +92,13 @@ document.addEventListener("DOMContentLoaded", async () => {
             // Verificación de respuesta del servidor
             if (response.ok) {
                 const data = await response.json();
-                alert(data.message); // Muestra mensaje de éxito
-                window.location.href = "#inicio-sesion"; // Redirige al login
+                if (DatasetController.message === "User Created"){
+                    console.log(data)
+                    alert(data.message); // Muestra mensaje de éxito
+                    window.location.href = "#inicio-sesion"; // Redirige al login
+                } else {
+                    alert(datos.message || "Error al registrar usuario");
+                }
             } else {
                 const errorData = await response.json();
                 alert(errorData.message || "Error al registrarse");
@@ -89,19 +107,6 @@ document.addEventListener("DOMContentLoaded", async () => {
             console.error("Error al enviar solicitud de registro:", error.message);
             alert("Ocurrió un error al registrarse");
         }
-    });
-
-    // Show dashboard section when login form button is clicked
-    loginFormButton.addEventListener("click", (e) => {
-        e.preventDefault(); // Prevent form submission
-        loginSection.style.display = "none"; // Hide login section
-        dashboardSection.style.display = "block"; // Show dashboard section
-    });
-
-    signupFormButton.addEventListener("click", (e) => {
-        e.preventDefault(); // Prevent form submission
-        signupSection.style.display = "none"; // Hide login section
-        dashboardSection.style.display = "block"; // Show dashboard section
     });
 
     exitIcon.addEventListener("click", () => {
@@ -167,41 +172,38 @@ document.addEventListener("DOMContentLoaded", async () => {
         }
     });
 
-    //async function fetchHistoricalData() {
-        const response = await fetch('http://alex-iot.us-east-1.elasticbeanstalk.com/historicalData');
-        const data = await response.json();
-        console.log(data)
-        const timestamps = data.map(d => new Date(`${d.date.substring(0,10)}T${d.time}Z`));
-        const temperatureData = data.filter(d => d.idTypeSensor === 1).map(d => ({ x: new Date(`${d.date.substring(0,10)}T${d.time}Z`), y: d.value }));
-        const humidityData = data.filter(d => d.idTypeSensor === 2).map(d => ({ x: new Date(`${d.date.substring(0,10)}T${d.time}Z`), y: d.value }));
-        const phData = data.filter(d => d.idTypeSensor === 3).map(d => ({ x: new Date(`${d.date.substring(0,10)}T${d.time}Z`), y: d.value }));
-        const soilHumidityData = data.filter(d => d.idTypeSensor === 4).map(d => ({ x: new Date(`${d.date.substring(0,10)}T${d.time}Z`), y: d.value }));
-        console.log(soilHumidityData)
+    const response = await fetch('http://alex-iot.us-east-1.elasticbeanstalk.com/historicalData');
+    const data = await response.json();
+    console.log(data);
+    const timestamps = data.map(d => new Date(`${d.date.substring(0,10)}T${d.time}Z`));
+    const temperatureData = data.filter(d => d.idTypeSensor === 1).map(d => ({ x: new Date(`${d.date.substring(0,10)}T${d.time}Z`), y: d.value }));
+    const humidityData = data.filter(d => d.idTypeSensor === 2).map(d => ({ x: new Date(`${d.date.substring(0,10)}T${d.time}Z`), y: d.value }));
+    const phData = data.filter(d => d.idTypeSensor === 3).map(d => ({ x: new Date(`${d.date.substring(0,10)}T${d.time}Z`), y: d.value }));
+    const soilHumidityData = data.filter(d => d.idTypeSensor === 4).map(d => ({ x: new Date(`${d.date.substring(0,10)}T${d.time}Z`), y: d.value }));
 
-
-        const ctx = document.getElementById('historicalChart');
-new Chart(ctx, {
-    type: 'line',
-    data: {
-        labels: timestamps,
-        datasets: [
-            { label: 'Temperatura', data: temperatureData, borderColor: 'rgba(255, 99, 132, 1)', fill: false },
-            { label: 'Humedad', data: humidityData, borderColor: 'rgba(54, 162, 235, 1)', fill: false },
-            { label: 'pH', data: phData, borderColor: 'rgba(75, 192, 192, 1)', fill: false },
-            { label: 'Humedad Suelo', data: soilHumidityData, borderColor: 'rgba(153, 102, 255, 1)', fill: false }
-        ]
-    },
-    options: {
-        responsive: true,  // Ensures chart resizes with window
-        maintainAspectRatio: false,  // Prevents aspect ratio issues
-        scales: {
-            x: {
-                type: 'time',
-                time: { unit: 'second', tooltipFormat: 'HH:mm:ss' },
-                title: { display: true, text: 'Tiempo' }
-            },
-            y: { title: { display: true, text: 'Valor' } }
+    const ctx = document.getElementById('historicalChart');
+    new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: timestamps,
+            datasets: [
+                { label: 'Temperatura', data: temperatureData, borderColor: 'rgba(255, 99, 132, 1)', fill: false },
+                { label: 'Humedad', data: humidityData, borderColor: 'rgba(54, 162, 235, 1)', fill: false },
+                { label: 'pH', data: phData, borderColor: 'rgba(75, 192, 192, 1)', fill: false },
+                { label: 'Humedad Suelo', data: soilHumidityData, borderColor: 'rgba(153, 102, 255, 1)', fill: false }
+            ]
+        },
+        options: {
+            responsive: true,  // Ensures chart resizes with window
+            maintainAspectRatio: false,  // Prevents aspect ratio issues
+            scales: {
+                x: {
+                    type: 'time',
+                    time: { unit: 'day', tooltipFormat: 'yyyy-MM-dd HH:mm:ss' }, // Cambia la unidad de tiempo a 'day' o 'minute'
+                    title: { display: true, text: 'Tiempo' }
+                },
+                y: { title: { display: true, text: 'Valor' } }
+            }
         }
-    }
+    });
 });
-});    

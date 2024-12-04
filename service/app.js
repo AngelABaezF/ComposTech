@@ -1,5 +1,3 @@
-//detener ctrl + c
-//node --watch app.js (para que se actualice sola)
 const express = require('express');
 const cors = require('cors');
 const session = require('express-session');
@@ -7,7 +5,8 @@ const bcrypt = require('bcrypt');
 const mqtt = require('mqtt');
 const pool = require('./helpers/mysql-config');
 const historicalDataRoute = require('./routes/historicalData');
-const authRoute = require('./routes/auth');
+const loginRoutes = require('./routes/login'); 
+const signupRoutes = require('./routes/signup');
 require('dotenv').config();
 
 const app = express();
@@ -17,9 +16,9 @@ app.use(cors());
 app.use(express.json());
 app.use(session({ secret: 'your-secret-key', resave: false, saveUninitialized: true }));
 
-
-app.use('/historicalData', historicalDataRoute);
-app.use('/', authRoute);
+app.use('/', historicalDataRoute);
+app.use('/', loginRoutes);
+app.use('/', signupRoutes);
 
 // Configuración MQTT
 const mqttClient = mqtt.connect(`ws://${process.env.MQTTHOST}`, {
@@ -89,4 +88,10 @@ setInterval(async () => {
 // Servidor Express
 app.listen(port, () => {
     console.log(`Servidor corriendo en el puerto ${port}`);
+});
+
+// Código para detener el servidor con ctrl + c
+process.on('SIGINT', () => {
+    console.log('Deteniendo servidor...');
+    process.exit();
 });

@@ -6,7 +6,7 @@ exports.getHistoricalData = async (req, res) => {
             SELECT idTypeSensor, value, date, time FROM (
                 SELECT *, ROW_NUMBER() OVER (PARTITION BY idTypeSensor ORDER BY date DESC, time DESC) AS row_num 
                 FROM data
-            ) subquery WHERE row_num <= 50 ORDER BY idTypeSensor, date, time
+            ) subquery WHERE row_num <= 10 ORDER BY idTypeSensor, date, time
         `;
         const [rows] = await pool.query(sql);
         res.json(rows);
